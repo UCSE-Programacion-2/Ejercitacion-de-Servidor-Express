@@ -1,20 +1,10 @@
-/**
- * Punto de entrada principal de la aplicación
- * Inicia el servidor HTTP en el puerto 3000
- */
-const createServer = require('./src/server');
+const app = require('./src/server');
 
-// Puerto en el que escuchará el servidor
 const PORT = 3000;
 
-// Crear el servidor
-const server = createServer();
-
-// Iniciar el servidor
-server.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
-  console.log('Presioná Ctrl+C para detener el servidor');
+const server = app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Servidor Express escuchando en http://localhost:${PORT}`);
 });
 
-// Exportar el servidor para pruebas
 module.exports = server;

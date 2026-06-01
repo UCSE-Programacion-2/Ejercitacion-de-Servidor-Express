@@ -1,18 +1,19 @@
-/**
- * Módulo que crea y configura el servidor HTTP
- */
-const http = require('http');
+const express = require('express');
 
-/**
- * Crea un servidor HTTP que utiliza la función router para manejar las solicitudes
- * @returns {http.Server} Instancia del servidor HTTP
- */
-function createServer() {
-  const server = http.createServer((req, res) => {
-    /* Aquí la lógica del enrutador */
-  });
+const app = express();
 
-  return server;
-}
+const productos = [
+  { id: 1, nombre: 'Laptop', categoria: 'electronica' },
+  { id: 2, nombre: 'Silla', categoria: 'muebles' },
+  { id: 3, nombre: 'Monitor', categoria: 'electronica' },
+];
 
-module.exports = createServer;
+const usuarios = [
+  { id: 1, nombre: 'Juan' },
+  { id: 2, nombre: 'Maria' },
+  { id: 3, nombre: 'Pedro' },
+];
+
+// TODO: Define tus rutas aquí
+
+module.exports = app;

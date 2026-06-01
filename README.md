@@ -1,25 +1,31 @@
-# Ejercicio: Servidor HTTP con Node.js
+# Ejercicio: Servidor HTTP con Express
 
-Este ejercicio está diseñado para practicar y evaluar tus conocimientos sobre la creación de servidores HTTP utilizando el módulo `http` de Node.js.
+Este ejercicio está diseñado para practicar y evaluar tus conocimientos sobre la creación de servidores HTTP utilizando Express.js, manejando rutas, query strings y parámetros de ruta.
 
 ## Descripción del Ejercicio
 
-Debés crear un servidor HTTP en Node.js que escuche en el puerto 3000 y maneje las siguientes rutas:
+Debés crear un servidor web en Express que escuche en el puerto 3000 y maneje las siguientes rutas:
 
-| Ruta                | Respuesta                                                      |
-| ------------------- | -------------------------------------------------------------- |
-| `/`                 | "Bienvenid@s! Gracias por tu visita."                          |
-| `/nosotros`         | "Bienvenid@s a saber + de nosotros :)"                         |
-| `/cursos`           | "Te interesan nuestros cursos. Vení a conocer la oferta!"      |
-| `/contacto`         | "Si querés contactarnos, hacelo a este Email: :)"              |
-| Cualquier otra ruta | Código 404 y mensaje: "No se ha encontrado la ruta ingresada." |
+| Ruta                     | Respuesta                                                       |
+| ------------------------ | --------------------------------------------------------------- |
+| `/`                      | "Bienvenid@s a nuestro servidor Express!"                       |
+| `/productos`             | Arreglo completo de `productos` en formato JSON                 |
+| `/productos?categoria=X` | Arreglo de productos filtrado por `categoria=X` en formato JSON |
+| `/usuarios/:id`          | Objeto del usuario correspondiente al `id` en formato JSON      |
+| Cualquier otra ruta      | Código 404 y mensaje: "No se ha encontrado la ruta ingresada."  |
 
-Para todas las rutas, debes establecer el encabezado `Content-Type` como `text/plain` y el conjunto de caracteres a `utf-8`.
+Para las rutas de productos y usuarios, debes devolver la respuesta en formato JSON (por ejemplo, utilizando `res.json()`).
+
+**Importante sobre Query Strings y Métodos de Arreglo:**
+Para la ruta `/productos`, si el cliente **no** envía la query string `categoria`, el servidor debe devolver el arreglo `productos` completo. Si la incluye, debes usar el método de arreglo `filter()` para devolver sólo los productos de esa categoría.
+Para la ruta `/usuarios/:id`, debes usar el método `find()` para obtener al usuario. Si el usuario no existe, devuelve un código 404 con el texto `"Usuario no encontrado."`.
+
+**Evaluación y GitHub Classroom:** Ten en cuenta que los _Issues_ que se te asignarán en este repositorio están divididos **por cada endpoint solicitado** (Ruta Raíz, Productos, Productos con Query, Usuarios y 404). Asegúrate de resolver cada ruta para que los tests automáticos cierren cada issue.
 
 ## Requisitos Técnicos
 
-1. Utilizar el módulo `http` de Node.js para crear el servidor.
-2. Manejar correctamente las rutas especificadas.
+1. Utilizar `express` para crear el servidor.
+2. Manejar correctamente las rutas, query strings (`req.query`) y parámetros de ruta (`req.params`).
 3. Configurar correctamente los encabezados de respuesta.
 4. Devolver los códigos de estado HTTP apropiados.
 
@@ -29,14 +35,15 @@ Para todas las rutas, debes establecer el encabezado `Content-Type` como `text/p
 proyecto/
 │
 ├── src/
-│   └── server.js     # Lógica para crear el servidor
+│   └── server.js      # Lógica para crear el servidor Express
 │
 ├── tests/
 │   └── server.test.js # Pruebas automatizadas
 │
-├── index.js          # Punto de entrada que inicia el servidor
-├── package.json      # Configuración y dependencias del proyecto
-└── README.md         # Este archivo
+├── index.js           # Punto de entrada que inicia el servidor
+├── api.http           # Peticiones HTTP para pruebas manuales
+├── package.json       # Configuración y dependencias del proyecto
+└── README.md          # Este archivo
 ```
 
 ## Instrucciones para Estudiantes
@@ -50,22 +57,22 @@ proyecto/
 
 1. Cloná o descargá este repositorio.
 2. Instalá las dependencias:
-   ```
+   ```bash
    npm install
    ```
 3. Implementá la lógica del servidor según los requisitos en los archivos correspondientes:
    - `src/server.js`
    - `index.js`
 4. Iniciá el servidor para probarlo manualmente:
-   ```
+   ```bash
    npm start
    ```
 5. Para desarrollo con recarga automática:
-   ```
+   ```bash
    npm run dev
    ```
 6. Verificá que tu implementación pasa todas las pruebas:
-   ```
+   ```bash
    npm test
    ```
 
@@ -80,36 +87,16 @@ proyecto/
 
 Este ejercicio incluye pruebas automatizadas que verificarán si tu implementación cumple con todos los requisitos. Para ejecutar estas pruebas, utiliza el comando:
 
-```
+```bash
 npm test
 ```
-
-Las pruebas verificarán:
-
-- Que cada ruta devuelva el mensaje correcto
-- Que se utilice el código de estado HTTP apropiado
-- Que se configuren correctamente los encabezados de respuesta
-- Que se maneje correctamente la situación de ruta no encontrada
-
-## Consejos
-
-- Asegurate de entender cómo funciona el módulo `http` de Node.js.
-- Familiarizate con los conceptos de solicitud (request) y respuesta (response) en HTTP.
-- Prestá atención a los encabezados y códigos de estado HTTP.
-- Estructura tu código de manera limpia y modular.
-
-## Recursos Útiles
-
-- [Documentación oficial de Node.js sobre el módulo HTTP](https://nodejs.org/api/http.html)
-- [MDN Web Docs: HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
-- [MDN Web Docs: HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
 
 ## Herramientas de editor (ESLint / Prettier / VS Code)
 
 Este repositorio incluye configuración estandarizada de linters y formateo.
 
 - **Configuración activa**: La raíz del proyecto ya contiene los archivos `.eslintrc.json` y `.prettierrc.js` activos.
-- **Referencia**: En la carpeta `Configuration-Files/backend-nodejs/` hay una copia de referencia del estándar (nota: el `package.json` de allí incluye Express/Mongo que no se usan en este ejercicio).
+- **Referencia**: En la carpeta `Configuration-Files/backend-nodejs/` hay una copia de referencia del estándar.
 - **Comandos útiles**:
   - `npm run lint` (verifica errores de código).
   - `npm run format` (aplica el formato correcto con Prettier).

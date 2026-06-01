@@ -1,14 +1,14 @@
 ### Ruta raíz
 GET http://localhost:3000/
 
-### Nosotros
-GET http://localhost:3000/nosotros
+### Productos (todos)
+GET http://localhost:3000/productos
 
-### Cursos
-GET http://localhost:3000/cursos
+### Productos con Query String
+GET http://localhost:3000/productos?categoria=electronica
 
-### Contacto
-GET http://localhost:3000/contacto
+### Usuarios con Parámetro de Ruta
+GET http://localhost:3000/usuarios/2
 
-### Ruta no existente
+### Ruta no existente (404)
 GET http://localhost:3000/ruta-no-existente
